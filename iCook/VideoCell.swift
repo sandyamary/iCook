@@ -1,14 +1,14 @@
 //
-//  TypeCell.swift
+//  VideoCell.swift
 //  iCook
 //
-//  Created by Udumala, Mary on 6/29/17.
+//  Created by Udumala, Mary on 7/11/17.
 //  Copyright © 2017 Udumala, Mary. All rights reserved.
 //
 
 import UIKit
 
-class TypeCell: UICollectionViewCell {
+class VideoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViews()
@@ -21,15 +21,6 @@ class TypeCell: UICollectionViewCell {
     var video: Video? {
         didSet {
             typeLabel.text = video?.title
-        }
-    }
-    
-    var category: Category? {
-        didSet {
-            typeLabel.text = category?.title
-            if let thumbnailImageName = category?.thumbnailImageName {
-                thumbnailImageView.image = UIImage(named: thumbnailImageName)
-            }
         }
     }
     
@@ -64,24 +55,6 @@ class TypeCell: UICollectionViewCell {
     }
 }
 
-
-extension UIView {
-    
-    func addConstraintsWithFormat(format: String, views: UIView...) {
-        
-        var viewDictionary = [String: UIView]()
-        
-        for (index, view) in views.enumerated() {
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewDictionary[key] = view
-        }
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat:format, options: NSLayoutFormatOptions(), metrics: nil, views: viewDictionary))
-        
-    }
-    
-}
 
 
 

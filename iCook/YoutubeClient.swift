@@ -82,8 +82,6 @@ class YoutubeClient {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
         }
-        
-        print("PARSEDRESULT: \(parsedResult)")
         completionHandlerForConvertData(parsedResult, nil)
     }
     

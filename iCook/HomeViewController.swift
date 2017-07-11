@@ -9,6 +9,25 @@
 import UIKit
 
 class HomeViewController: UICollectionViewController {
+    
+    
+    var categories: [Category] = {
+        
+        var kidsMeals = Category()
+        kidsMeals.thumbnailImageName = "KidsRecipiesThumbnail"
+        kidsMeals.title = "Kids Recipies"
+        
+        var ketoRecipies = Category()
+        ketoRecipies.thumbnailImageName = "KetoRecipiesThumbnail"
+        ketoRecipies.title = "keto Recipies"
+        
+        var LunchBoxRecipies = Category()
+        LunchBoxRecipies.thumbnailImageName = "LunchBoxRecipiesThumbnail"
+        LunchBoxRecipies.title = "Lunch Box Recipies"
+        
+        return [kidsMeals, ketoRecipies, LunchBoxRecipies]
+        
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,32 +46,29 @@ class HomeViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return categories.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "typeCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "typeCell", for: indexPath) as! TypeCell
+        cell.category = categories[indexPath.item]
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        YoutubeClient.sharedInstance().getVideos(query: "Kids Meal Recipies") { (results, error) in
-            if error != nil {
-                print("found an error")
-            } else {
-                print("***************************************************")
-                print(results!)
-            }
-        }
+        
+        let vc = ListViewController(collectionViewLayout:UICollectionViewLayout())
+        vc.navigationItem.title = categories[indexPath.item].title
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        
     }
     
    
     func slideMenu() {
         print("123")
     }
-
-
 
 }
 
