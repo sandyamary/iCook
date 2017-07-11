@@ -15,18 +15,17 @@ class HomeViewController: UICollectionViewController {
         
         var kidsMeals = Category()
         kidsMeals.thumbnailImageName = "KidsRecipiesThumbnail"
-        kidsMeals.title = "Kids Recipies"
+        kidsMeals.title = "Kids Healthy Recipies"
         
         var ketoRecipies = Category()
         ketoRecipies.thumbnailImageName = "KetoRecipiesThumbnail"
-        ketoRecipies.title = "keto Recipies"
+        ketoRecipies.title = "Keto Recipies"
         
         var LunchBoxRecipies = Category()
         LunchBoxRecipies.thumbnailImageName = "LunchBoxRecipiesThumbnail"
         LunchBoxRecipies.title = "Lunch Box Recipies"
         
-        return [kidsMeals, ketoRecipies, LunchBoxRecipies]
-        
+        return [kidsMeals, ketoRecipies, LunchBoxRecipies]        
     }()
 
     override func viewDidLoad() {
@@ -57,7 +56,7 @@ class HomeViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let vc = ListViewController(collectionViewLayout:UICollectionViewLayout())
+        let vc = ListViewController(collectionViewLayout: UICollectionViewFlowLayout())
         vc.navigationItem.title = categories[indexPath.item].title
         self.navigationController?.pushViewController(vc, animated: true)
         

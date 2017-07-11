@@ -30,15 +30,19 @@ extension YoutubeClient {
             static let SearchString = "q"
             static let ContentType = "type"
             static let VideoDuration = "videoDuration"
+            static let videoDefinition = "videoDefinition"
+            static let maxResults = "maxResults"
             
         }
         
         struct YTParameterValues {
             static let Part = "snippet"
             static let APIKey = "AIzaSyBFoDO2Eko9lheKUD4CA8rBnK6eVxKf9ZM"
-            static let Order = "date"
+            static let Order = "rating"
             static let ContentType = "video"
             static let VideoDuration = "short"
+            static let videoDefinition = "high"
+            static let maxResults = "25"
         }
         
         // MARK: youtube Response Keys

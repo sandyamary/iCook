@@ -13,8 +13,12 @@ class ListViewController: UICollectionViewController {
     
     var videos: [Video]?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Arial", size: 19.0)!, NSForegroundColorAttributeName : UIColor.white]
+        collectionView?.backgroundColor = UIColor.white
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "videoCell")
         
         
@@ -25,29 +29,33 @@ class ListViewController: UICollectionViewController {
                 self.videos = [Video]()
                 for dictionary in results! {
                     let video = Video()
-                    video.title = dictionary["etag"] as? String
+                    
+                    if let snippet = dictionary["snippet"] as? [String: AnyObject], let thumbnails = snippet["thumbnails"] as? [String: AnyObject], let defaultImage = thumbnails["default"] as? [String: AnyObject], let url = defaultImage["url"], let title = snippet["title"], let channelName = snippet["channelTitle"] {
+                        video.thumbnailUrl = url as? String
+                        video.title = title as? String
+                        video.channelTitle = channelName as? String
+                    }
                     self.videos?.append(video)
                 }
                 
-                self.collectionView?.reloadData()
-                
-                
+                DispatchQueue.main.sync {
+                    self.collectionView?.reloadData()
+                }
             }
         }
-        
-    }
     
+    }
+        
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(videos?.count ?? 0)
         return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath) as! VideoCell
         cell.video = videos?[indexPath.item]
-        cell.backgroundColor = UIColor.blue
         return cell
     }
+
 
     
 }
@@ -55,9 +63,10 @@ class ListViewController: UICollectionViewController {
 extension ListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (view.frame.width - 16 - 16) * 9 / 16
-        return CGSize(width: view.frame.width, height: height + 16 + 68)
+        let height = (view.frame.width - 280) * 9 / 16
+        return CGSize(width: view.frame.width, height: height)
     }
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

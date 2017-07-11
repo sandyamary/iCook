@@ -24,11 +24,12 @@ class YoutubeClient {
         
         searchParameters[YoutubeClient.Constants.YTParameterKeys.APIKey] = YoutubeClient.Constants.YTParameterValues.APIKey
         
-        searchParameters[YoutubeClient.Constants.YTParameterKeys.ContentType] = YoutubeClient.Constants.YTParameterValues.ContentType
-        
+        searchParameters[YoutubeClient.Constants.YTParameterKeys.ContentType] = YoutubeClient.Constants.YTParameterValues.ContentType        
         searchParameters[YoutubeClient.Constants.YTParameterKeys.Order] = YoutubeClient.Constants.YTParameterValues.Order
         searchParameters[YoutubeClient.Constants.YTParameterKeys.Part] = YoutubeClient.Constants.YTParameterValues.Part
         searchParameters[YoutubeClient.Constants.YTParameterKeys.VideoDuration] = YoutubeClient.Constants.YTParameterValues.VideoDuration
+        searchParameters[YoutubeClient.Constants.YTParameterKeys.videoDefinition] = YoutubeClient.Constants.YTParameterValues.videoDefinition
+        searchParameters[YoutubeClient.Constants.YTParameterKeys.maxResults] = YoutubeClient.Constants.YTParameterValues.maxResults
         searchParameters[YoutubeClient.Constants.YTParameterKeys.SearchString] = searchCategory
         
         
