@@ -8,16 +8,7 @@
 
 import UIKit
 
-class VideoCell: UICollectionViewCell {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+class VideoCell: baseCell {
     
     var video: Video? {
         didSet {
@@ -64,18 +55,8 @@ class VideoCell: UICollectionViewCell {
     }()
     
     func loadThumbnailImage() {
-        if let thumbnailImageUrl = video?.thumbnailUrl {            
-            let url = URL(string: thumbnailImageUrl)
-            let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                if error != nil {
-                    print(error ?? "Error downloading thumbnail images")
-                    return
-                }
-                DispatchQueue.main.sync {
-                    self.thumbnailImageView.image = UIImage(data: data!)
-                }
-            }
-            task.resume()
+        if let thumbnailImageUrl = video?.thumbnailUrl {
+            thumbnailImageView.loadImageUsingUrlString(urlString: thumbnailImageUrl)
         }
     }
     
@@ -86,7 +67,8 @@ class VideoCell: UICollectionViewCell {
 //    }()
     
     
-    func setUpViews() {
+    override func setUpViews() {
+        super.setUpViews()
         addSubview(thumbnailImageView)
         addSubview(name)
         addSubview(views)

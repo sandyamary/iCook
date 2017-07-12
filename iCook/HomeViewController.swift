@@ -64,9 +64,11 @@ class HomeViewController: UICollectionViewController {
         
     }
     
-   
+    let menuLauncher = MenuLauncher()
+    
     func slideMenu() {
         print("123")
+        menuLauncher.showMenu()
     }
 
 }
