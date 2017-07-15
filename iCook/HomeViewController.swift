@@ -59,18 +59,26 @@ class HomeViewController: UICollectionViewController {
         let vc = ListViewController(collectionViewLayout: UICollectionViewFlowLayout())
         vc.navigationItem.title = categories[indexPath.item].title
         self.navigationController?.pushViewController(vc, animated: true)
-        
-        
-        
     }
     
-    let menuLauncher = MenuLauncher()
+    lazy var menuLauncher: MenuLauncher  = {
+        let launcher = MenuLauncher()
+        launcher.homeController = self
+        return launcher
+    }()
     
     func slideMenu() {
-        print("123")
         menuLauncher.showMenu()
     }
-
+    
+    func showControllerForMenuItems(menuItem: Menu) {
+        let vc = FavoritesViewController()
+        vc.view.backgroundColor = UIColor.white
+        vc.navigationItem.title = menuItem.itemName
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {

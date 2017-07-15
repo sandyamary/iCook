@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 class Menu {
-    var item: String
+    var itemName: String
     var imageIcon: String
     
     init(item: String, imageIcon: String) {
-        self.item = item
+        self.itemName = item
         self.imageIcon = imageIcon
     }
 }
@@ -34,7 +34,7 @@ class MenuLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelega
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.white
-        layout.sectionInset = UIEdgeInsets(top: 100.0, left: 1.0, bottom: 1.0, right: 1.0)
+        layout.sectionInset = UIEdgeInsets(top: 100.0, left: 0.0, bottom: 0.0, right: 0.0)
         return cv
     }()
     
@@ -43,6 +43,8 @@ class MenuLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelega
     let menuItems: [Menu] = {
         return [Menu(item: "HOME", imageIcon: "HomeIcon"), Menu(item: "FAVORITES", imageIcon: "FavIcon"), Menu(item: "SEARCH", imageIcon: "SearchIcon"), Menu(item: "CANCEL", imageIcon: "CancelIcon")]
     }()
+    
+    var homeController: HomeViewController?
     
     func showMenu() {
         
@@ -87,6 +89,24 @@ extension MenuLauncher {
         let menuItem = menuItems[indexPath.item]
         cell.menu = menuItem
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { 
+            
+            self.dimView.alpha = 0
+            if let window = UIApplication.shared.keyWindow {
+                self.collectionView.frame = CGRect(x: 0, y: 0, width: 0, height: window.frame.height)
+            }
+            
+        }) { (completed: Bool) in
+            let menuItem = self.menuItems[indexPath.item]
+            if menuItem.itemName != "CANCEL" && menuItem.itemName != "HOME" {
+                self.homeController?.showControllerForMenuItems(menuItem: menuItem)
+            }
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

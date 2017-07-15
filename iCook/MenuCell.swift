@@ -11,9 +11,15 @@ import UIKit
 
 class MenuCell: baseCell {
     
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.darkGray : UIColor.white
+        }
+    }
+    
     var menu: Menu? {
         didSet {
-            nameLabel.text = menu?.item
+            nameLabel.text = menu?.itemName
             if let icon = menu?.imageIcon {
                 iconImageView.image = UIImage(named: icon)
             }
@@ -38,9 +44,9 @@ class MenuCell: baseCell {
         addSubview(iconImageView)
         addSubview(nameLabel)
 
-        addConstraintsWithFormat(format: "H:|-8-[v0(30)]-12-[v1]|", views: iconImageView, nameLabel)
+        addConstraintsWithFormat(format: "H:|-8-[v0(20)]-12-[v1]|", views: iconImageView, nameLabel)
         addConstraintsWithFormat(format: "V:|[v0]|", views: nameLabel)
-        addConstraintsWithFormat(format: "V:[v0(30)]", views: iconImageView)
+        addConstraintsWithFormat(format: "V:[v0(20)]", views: iconImageView)
         
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         

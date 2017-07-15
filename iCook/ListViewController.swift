@@ -52,11 +52,19 @@ class ListViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath) as! VideoCell
+        cell.options.addTarget(self, action: #selector(openOptions), for: .touchUpInside)
         cell.video = videos?[indexPath.item]
         return cell
     }
-
-
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = VideoViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func openOptions() {
+        print("111")
+    }
     
 }
 
@@ -66,13 +74,11 @@ extension ListViewController: UICollectionViewDelegateFlowLayout {
         let height = (view.frame.width - 280) * 9 / 16
         return CGSize(width: view.frame.width, height: height)
     }
-
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    
+
 }
 
 

@@ -60,26 +60,28 @@ class VideoCell: baseCell {
         }
     }
     
-//    let options: UIButton = {
-//        let optionsIcon = UIButton()
-//        optionsIcon.imageView?.image = UIImage(named: "MoreButton")
-//        return optionsIcon
-//    }()
-    
-    
+    let options: UIButton = {
+        let optionsButton = UIButton()
+        optionsButton.setImage(UIImage(named: "MoreButton"), for: .normal)
+        return optionsButton
+    }()
+        
     override func setUpViews() {
         super.setUpViews()
         addSubview(thumbnailImageView)
         addSubview(name)
         addSubview(views)
         addSubview(channel)
-        //addSubview(options)
+        addSubview(options)
         addSubview(separatorView)
         
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(1)]|", views: thumbnailImageView, separatorView)
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1]-2-[v2]-8-|", views: name, views, channel)
-        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(280)]-16-|", views: thumbnailImageView, name)
+        //addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(280)]-16-|", views: thumbnailImageView, name)
+        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(260)]-8-[v2(20)]", views: thumbnailImageView, name, options)
         addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(280)]-16-|", views: thumbnailImageView, views)
+        //addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(280)]-16-|", views: thumbnailImageView, options)
+        addConstraintsWithFormat(format: "V:|-8-[v0(20)]", views: options)
         addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(280)]-16-|", views: thumbnailImageView, channel)
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
     }
