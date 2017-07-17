@@ -62,8 +62,33 @@ class ListViewController: UICollectionViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    lazy var optionsLauncher: OptionsLauncher  = {
+        let launcher = OptionsLauncher()
+        launcher.listViewController = self
+        return launcher
+    }()
+    
     func openOptions() {
         print("111")
+        optionsLauncher.showOptions()
+    }
+    
+    func showFavotitesAlert() {
+        let alert = UIAlertController(title: "❤️ Added to your Favorites", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showShareOptions() {
+        let textToShare = "Swift is awesome!"
+        let controller = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+        controller.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+            if completed == true {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        self.present(controller, animated: true, completion: nil)
     }
     
 }
